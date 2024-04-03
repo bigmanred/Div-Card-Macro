@@ -56,19 +56,22 @@ loop, 2
     loop, 5
     {
         ; 1. shift click slot in inventory
-        Send {Ctrl down}
-        click, %invPosX%, %invPosY%, 23
-        Send {Ctrl Up}
+        ;Send {Ctrl down}
+        ;click, %invPosX%, %invPosY%, 23
+        ;Send {Ctrl Up}
+        CtrlClick(invPosX, invPosY)
         Sleep, %sleepDelay%
 
         ; 2. click trade
-        click, %tradeX%, %tradeY%, 23
+        ;click, %tradeX%, %tradeY%, 23
+        Click(tradeX, tradeY)
         Sleep, %sleepDelay%
 
         ; 3. shift click item back into inventory
-        Send {Ctrl down}
-        click, %itemX%, %itemY%, 23
-        Send {Ctrl Up}
+        ;Send {Ctrl down}
+        ;click, %itemX%, %itemY%, 23
+        ;Send {Ctrl Up}
+        CtrlClick(itemX, itemY)
         Sleep, %sleepDelay%
 
         invPosY := invPosY + invY
@@ -83,19 +86,19 @@ return
 F6::ExitApp
 
 
-CtrlClick(x, y, sleepMin, sleepMax)
+CtrlClick(x, y)
 {
     Mousemove, %x%, %y%
     Send, ^{click}
-    RSleep(sleepMin, sleepMax)
+    ;RSleep(sleepMin, sleepMax)
     return
 }
 
-Click(x, y, sleepMin, sleepMax)
+Click(x, y)
 {
     Mousemove, %x%, %y%
     Send, {click}
-    RSleep(sleepMin, sleepMax)
+    ;RSleep(sleepMin, sleepMax)
     return
 }
 
