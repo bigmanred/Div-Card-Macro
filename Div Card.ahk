@@ -46,7 +46,7 @@ itemY := 633
 invX := 50
 invY := 50
 
-Random sleepDelay, 250, 350
+Random sleepDelay, 80, 145
 
 +F12::
 invPosX := firstSlotX
@@ -59,20 +59,20 @@ loop, 2
         ;Send {Ctrl down}
         ;click, %invPosX%, %invPosY%, 23
         ;Send {Ctrl Up}
-        CtrlClick(invPosX, invPosY)
-        Sleep, %sleepDelay%
+        CtrlClick(invPosX, invPosY, sleepDelay)
+        ;Sleep, %sleepDelay%
 
         ; 2. click trade
         ;click, %tradeX%, %tradeY%, 23
-        Click(tradeX, tradeY)
-        Sleep, %sleepDelay%
+        CtrlClick(tradeX, tradeY, sleepDelay)
+        ;Sleep, %sleepDelay%
 
         ; 3. shift click item back into inventory
         ;Send {Ctrl down}
         ;click, %itemX%, %itemY%, 23
         ;Send {Ctrl Up}
-        CtrlClick(itemX, itemY)
-        Sleep, %sleepDelay%
+        CtrlClick(itemX, itemY, sleepDelay)
+        ;Sleep, %sleepDelay%
 
         invPosY := invPosY + invY
     }
@@ -86,10 +86,12 @@ return
 F6::ExitApp
 
 
-CtrlClick(x, y)
+CtrlClick(x, y, delay)
 {
     Mousemove, %x%, %y%
+    Sleep, %delay%
     Send, ^{click}
+    Sleep, %delay%
     ;RSleep(sleepMin, sleepMax)
     return
 }
@@ -97,7 +99,9 @@ CtrlClick(x, y)
 Click(x, y)
 {
     Mousemove, %x%, %y%
+    Sleep, %sleepDelay%
     Send, {click}
+    Sleep, %sleepDelay%
     ;RSleep(sleepMin, sleepMax)
     return
 }
