@@ -44,10 +44,10 @@ breakFlag := false
 ; pixels for trade
 ; seems to be 49-50 px
 ; further testing seems to suggest 52px
-invX := 52
-invY := 52
+invX := 51
+invY := 51
 
-Random sleepDelay, 80, 145
+Random sleepDelay, 50, 83
 
 ; shift + "/"
 +/::
@@ -58,32 +58,22 @@ return
 +F12::
 breakFlag := false
 invPosX := firstSlotX
-loop, 3
+loop, 12
 {
     invPosY := firstSlotY
     loop, 5
     {
         ; 1. shift click slot in inventory
-        ;Send {Ctrl down}
-        ;click, %invPosX%, %invPosY%, 23
-        ;Send {Ctrl Up}
         breakCheck()
         CtrlClick(invPosX, invPosY, sleepDelay)
-        ;Sleep, %sleepDelay%
 
         ; 2. click trade
-        ;click, %tradeX%, %tradeY%, 23
         breakCheck()
         CtrlClick(tradeX, tradeY, sleepDelay)
-        ;Sleep, %sleepDelay%
 
         ; 3. shift click item back into inventory
-        ;Send {Ctrl down}
-        ;click, %itemX%, %itemY%, 23
-        ;Send {Ctrl Up}
         breakCheck()
         CtrlClick(itemX, itemY, sleepDelay)
-        ;Sleep, %sleepDelay%
 
         invPosY := invPosY + invY
     }
@@ -94,7 +84,7 @@ return
 
 
 ; Add hotkey to exit script when F6 is pressed
-F6::ExitApp
+F7::ExitApp
 
 
 CtrlClick(x, y, delay)
@@ -103,7 +93,6 @@ CtrlClick(x, y, delay)
     Sleep, %delay%
     Send, ^{click}
     Sleep, %delay%
-    ;RSleep(sleepMin, sleepMax)
     return
 }
 
@@ -113,21 +102,4 @@ breakCheck()
     {
         return
     }
-}
-
-Click(x, y)
-{
-    Mousemove, %x%, %y%
-    Sleep, %sleepDelay%
-    Send, {click}
-    Sleep, %sleepDelay%
-    ;RSleep(sleepMin, sleepMax)
-    return
-}
-
-RSleep(min, max)
-{
-    Random sleepDelay, %min%, %max%
-    Sleep, sleepDelay
-    return
 }
