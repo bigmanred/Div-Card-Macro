@@ -64,8 +64,6 @@ loop, 2
         ; 2. click trade
         click, %tradeX%, %tradeY%, 23
         Sleep, %sleepDelay%
-        click, %tradeX%, %tradeY%, 23
-        Sleep, %sleepDelay%
 
         ; 3. shift click item back into inventory
         Send {Ctrl down}
@@ -80,5 +78,30 @@ loop, 2
 }
 return
 
+
 ; Add hotkey to exit script when F6 is pressed
 F6::ExitApp
+
+
+CtrlClick(x, y, sleepMin, sleepMax)
+{
+    Mousemove, %x%, %y%
+    Send, ^{click}
+    RSleep(sleepMin, sleepMax)
+    return
+}
+
+Click(x, y, sleepMin, sleepMax)
+{
+    Mousemove, %x%, %y%
+    Send, {click}
+    RSleep(sleepMin, sleepMax)
+    return
+}
+
+RSleep(min, max)
+{
+    Random sleepDelay, %min%, %max%
+    Sleep, sleepDelay
+    return
+}
