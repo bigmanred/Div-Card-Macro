@@ -39,18 +39,26 @@ tradeX := 649
 tradeY := 720
 itemX := 650
 itemY := 633
+breakFlag := false
 
 ; pixels for trade
 ; seems to be 49-50 px
 ; further testing seems to suggest 52px
-invX := 50
-invY := 50
+invX := 52
+invY := 52
 
 Random sleepDelay, 80, 145
 
+; shift + "/"
++/::
+breakFlag := !breakFlag
+return
+
+; shift + F12
 +F12::
+breakFlag := false
 invPosX := firstSlotX
-loop, 2
+loop, 3
 {
     invPosY := firstSlotY
     loop, 5
@@ -59,11 +67,13 @@ loop, 2
         ;Send {Ctrl down}
         ;click, %invPosX%, %invPosY%, 23
         ;Send {Ctrl Up}
+        breakCheck()
         CtrlClick(invPosX, invPosY, sleepDelay)
         ;Sleep, %sleepDelay%
 
         ; 2. click trade
         ;click, %tradeX%, %tradeY%, 23
+        breakCheck()
         CtrlClick(tradeX, tradeY, sleepDelay)
         ;Sleep, %sleepDelay%
 
@@ -71,6 +81,7 @@ loop, 2
         ;Send {Ctrl down}
         ;click, %itemX%, %itemY%, 23
         ;Send {Ctrl Up}
+        breakCheck()
         CtrlClick(itemX, itemY, sleepDelay)
         ;Sleep, %sleepDelay%
 
@@ -94,6 +105,14 @@ CtrlClick(x, y, delay)
     Sleep, %delay%
     ;RSleep(sleepMin, sleepMax)
     return
+}
+
+breakCheck()
+{
+    if (breakFlag)
+    {
+        return
+    }
 }
 
 Click(x, y)
