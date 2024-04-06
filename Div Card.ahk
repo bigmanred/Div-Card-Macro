@@ -1,36 +1,8 @@
-#NoEnv
+#IfWinActive, Path of Exile ahk_class POEWindowClass
 #SingleInstance, Force
 SendMode, Input
 SetBatchLines, -1
 SetWorkingDir, %A_ScriptDir%
-
-
-;First slot
-;Screen:	1334, 601 (less often used)
-;Window:	1334, -439 (default)
-;Client:	1334, -439 (recommended)
-;Color:	524B40 (Red=52 Green=4B Blue=40)
-;
-;Trade button
-;Screen:	649, 720 (less often used)
-;Window:	657, 728 (default)
-;Client:	649, 697 (recommended)
-;Color:	9D9D9D (Red=9D Green=9D Blue=9D)
-;
-;Click item to return to inventory
-;Screen:	650, 633 (less often used)
-;Window:	658, 641 (default)
-;Client:	650, 610 (recommended)
-;Color:	000000 (Red=00 Green=00 Blue=00)
-;
-;Second slot
-;Screen:	1383, 601 (less often used)
-;Window:	1391, 609 (default)
-;Client:	1383, 578 (recommended)
-;Color:	514B43 (Red=51 Green=4B Blue=43)
-
-; this means that slots are 49-50 pixels away from each other, both x and y
-
 
 ; using screen coordinates
 firstSlotX := 1334
@@ -47,16 +19,35 @@ breakFlag := false
 invX := 51
 invY := 51
 
-Random sleepDelay, 50, 83
+Random sleepDelay, 83, 150
+
+
+; Add hotkey to exit script when button is pressed
+*F7::ExitApp
+
 
 ; shift + "/"
 +/::
 breakFlag := !breakFlag
+
+if (breakFlag == 0)
+{
+    Tooltip, Macro ON
+}
+else
+{
+    Tooltip, Macro OFF
+}
+SetTimer, RemoveToolTip, 1000
 return
+
 
 ; shift + F12
 +F12::
 breakFlag := false
+Tooltip, Macro ON
+SetTimer, RemoveToolTip, 1000
+
 invPosX := firstSlotX
 loop, 12
 {
@@ -64,15 +55,15 @@ loop, 12
     loop, 5
     {
         ; 1. shift click slot in inventory
-        breakCheck()
+        if (!breakFlag) return
         CtrlClick(invPosX, invPosY, sleepDelay)
 
         ; 2. click trade
-        breakCheck()
+        if (!breakFlag) return
         CtrlClick(tradeX, tradeY, sleepDelay)
 
         ; 3. shift click item back into inventory
-        breakCheck()
+        if (!breakFlag) return
         CtrlClick(itemX, itemY, sleepDelay)
 
         invPosY := invPosY + invY
@@ -83,8 +74,7 @@ loop, 12
 return
 
 
-; Add hotkey to exit script when F6 is pressed
-F7::ExitApp
+
 
 
 CtrlClick(x, y, delay)
@@ -92,14 +82,10 @@ CtrlClick(x, y, delay)
     Mousemove, %x%, %y%
     Sleep, %delay%
     Send, ^{click}
-    Sleep, %delay%
     return
 }
 
-breakCheck()
-{
-    if (breakFlag)
-    {
-        return
-    }
-}
+RemoveToolTip:
+SetTimer, RemoveToolTip, Off
+ToolTip
+Return
