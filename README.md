@@ -13,8 +13,8 @@ This AutoHotkey script is designed to automate certain actions in the game Path 
 2. Copy the script into a new text file and save it with a `.ahk` extension.
 3. Double-click the `.ahk` file to run the script.
 4. Launch Path of Exile.
-5. Press Shift + `/` to toggle the macro on or off. When the macro is active, the tooltip displays "Macro ON"; otherwise, it displays "Macro OFF".
-6. Press Shift + F12 to activate the macro.
+5. Press Shift + F12 to activate the macro.
+6. Press Shift + `/` to toggle the macro on or off. When the macro is active, the tooltip displays "Macro ON"; otherwise, it displays "Macro OFF".
 7. Press `F7` to exit the script and terminate the macro.
 
 ## Script Details
