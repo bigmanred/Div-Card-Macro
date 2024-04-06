@@ -12,13 +12,10 @@ tradeY := 720
 itemX := 650
 itemY := 633
 breakFlag := false
-
 ; pixels for trade
-; seems to be 49-50 px
-; further testing seems to suggest 52px
+; seems to be 49-52 px
 invX := 51
 invY := 51
-
 Random sleepDelay, 83, 150
 
 
@@ -47,7 +44,6 @@ return
 breakFlag := false
 Tooltip, Macro ON
 SetTimer, RemoveToolTip, 1000
-
 invPosX := firstSlotX
 loop, 12
 {
@@ -72,9 +68,6 @@ loop, 12
     invPosX := invPosX + invX
 }
 return
-
-
-
 
 
 CtrlClick(x, y, delay)
